@@ -1,0 +1,23 @@
+body{
+	margin:0px;
+	display:flex;
+}
+canvas{
+	flex-grow:4;
+	order:1;
+}
+#control{
+	flex-grow:1;
+	order:2;
+}
+.node{
+	border:1px solid black;
+	border-radius:50%;
+	padding: 10px;
+	color:black;
+	background:white;
+}
+.node:hover,.node.drag{
+	color:white;
+	background:black;
+}
