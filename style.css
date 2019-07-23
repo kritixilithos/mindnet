@@ -21,8 +21,19 @@ body{
 	display:flex;
 	flex-direction:column;
 }
-#details>.info{
-	/*flex-grow:1;*/
+#details>*{
+	margin:5px;
+}
+.fromto{
+	display:flex;
+	justify-content:space-around;
+}
+.fromto>*{
+	text-align:center;
+	flex:1;
+}
+.fromto>.b{
+	border:1px solid black;
 }
 #text{
 	display:grid;
@@ -37,8 +48,17 @@ body{
 	color:black;
 	background:white;
 }
-.node:hover,.sel{
+.node:hover,.msel{
+	background:gray;
+}
+.node.sel,.sel{
 	color:white;
 	background:black;
 }
+.edge{
+	position:absolute;
+	border:1px solid black;
+	z-index:-1;
+}
+
 button{padding:0px}
