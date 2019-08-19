@@ -14,9 +14,9 @@ l('start')
 
 var raw={'n':[['asdas',[]]],'e':[]}
 
-var ns=[] //nodes
+var ns=[] //nodes, .i .t .es
 var ds=[] //divs (of nodes)
-var es=[] //edges TODO:remove?
+var es=[] //edges TODO:remove?, .i .a .w
 var ss=[] //'svgs' (of edges)
 var c={norm:null,drag:null,add_n:null,add_e:null} //cursor meta, prop:index
 var msel=[] //selected nodes other than the first one, ie multiselect
@@ -89,11 +89,19 @@ var init_d=(i,x=0,y=0)=>{
 
 //details(index)
 var det=i=>{
+	//delete button
+	var del=create('button');del.id='del';del.textContent='delete node'
+	del.onclick=ec=>{
+		ns[i].es.forEach(e=>{
+			var nod=e.a.i===i?e.w:e.a;nod.es.splice(nod.es.indexOf(e),1)
+			rm_p_ch($('#display'),ss[e.i]);ss[e.i]=null;es[e.i]=null
+		})
+		c.norm=null;rm_p_ch($('#display'),ds[i]);ds[i]=null;ns[i]=null;$('#norm').click()
+	}
+
 	//change text
-	var text=create('div','info');text.id='text'
-	//<span><  i  n  p  u  t  >
-	var span=create('span');span.textContent='text:';var inp=create('input');inp.value=ns[i].t
-	add_p_ch(text,span,inp)
+	//<input>
+	var inp=create('input');inp.value=ns[i].t
 	//upd_si because centre of node changes
 	inp.oninput=ei=>{ds[i].textContent=ns[i].t=inp.value;upd_d(ds[i]);ns[i].es.forEach(e=>upd_si(e.i))}
 	inp.onkeydown=ek=>{ek.keyCode===13&&inp.blur()}
@@ -112,7 +120,7 @@ var det=i=>{
 		otr.onmouseenter=function(ev){msel.push(this.i);add_e_c(ds[this.i],'msel')};otr.onmouseleave=ev=>{unmsel()}
 		add_p_ch(edges,add_p_ch(tmp,aw[0],med,aw[1]))
 	})
-	add_p_ch($('#details'),text,edges)
+	add_p_ch($('#details'),del,inp,edges)
 }
 
 //init_svg(index)
@@ -153,6 +161,9 @@ var add_e_c=(e,c)=>e.classList.add(c)
 
 //add_parent_children(parent,...children)
 var add_p_ch=(p,...c)=>(c.forEach(ch=>p.appendChild(ch)),p)
+
+//remove_parent_children(parent,...children)
+var rm_p_ch=(p,...c)=>(c.forEach(ch=>p.removeChild(ch)),p)
 
 //remove_element_class(element,class)
 var rm_e_c=(e,c)=>e.classList.remove(c)

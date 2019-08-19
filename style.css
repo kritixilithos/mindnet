@@ -1,3 +1,6 @@
+*{
+	font-family:'Arial';font-size:1em;
+}
 body{
 	margin:0px;
 	display:grid;
@@ -24,20 +27,27 @@ body{
 #details>*{
 	margin:5px;
 }
+#del{
+	background-color:white;border:1px solid red;text-align:center;color:black;
+}
+#del:hover{
+	background-color:red;color:white;
+}
+#text{
+	display:flex;align-items:center;
+}
+#text>input{
+	flex-grow:2;
+}
 .fromto{
 	display:flex;
 	justify-content:space-around;
 }
 .fromto>*{
-	text-align:center;
-	flex:1;
+	text-align:center;flex:1;
 }
 .fromto>.b{
 	border:1px solid black;
-}
-#text{
-	display:grid;
-	grid-template-columns: 1fr 3fr;
 }
 
 .node{
